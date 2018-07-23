@@ -1,0 +1,39 @@
+@startuml
+skinparam dpi 200
+
+start
+partition Initialization {
+	:Load All Win Combinations;
+
+	note 
+		For this task we load only:
+		**Flush**
+		**Three of a Kind**
+		**One Pair**
+		**High Card**
+	end note
+}
+
+while (do we have players to evaluate) is (yes)
+
+partition EvaluatePlayers {
+	:Get Players' Collection;
+
+	fork 
+		:Evaluate Player 1;
+	fork again
+		:...}
+	fork again
+		:Evaluate Player N;
+	end fork
+	:Compare All Players' Win Combinations;
+
+	:Return Winners' Collection;
+}
+
+:Print Winners' names to console;
+
+endwhile (no)
+
+stop
+@enduml

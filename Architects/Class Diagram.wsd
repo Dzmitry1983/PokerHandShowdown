@@ -1,0 +1,155 @@
+@startuml
+skinparam dpi 200
+
+enum Enum.CardSuite {
+	diamond
+	...
+	spade
+}
+
+enum Enum.CardItem {
+	ace
+	...
+	two
+	<<
+	>>
+	==
+}
+
+enum Enum.CardSuiteMask {
+	any
+	equal
+}
+
+enum Enum.CardItemMask {
+	ace
+	...
+	two
+	any
+	equal
+	next
+}
+
+enum Enum.WinCombinationType {
+	Flush
+	ThreeOfAKind
+	OnePair
+	HighCard
+}
+
+interface Interface.Hand {
+	+ cards:[Card]
+}
+
+interface Interface.Card {
+	+ suite:CardSuite
+	+ item:CardItem
+	+ rating:Int
+	+ >
+	+ <
+	+ ==
+}
+
+interface Interface.CardMask {
+	+ suite:CardSuiteMask
+	+ item:CardItemMask
+}
+
+class Factories.WinCombinationFactory {
+	+ (WinCombination) winCombination(by:WinCombinationType)
+}
+
+class Model.CardModel {
+	+ suite:CardSuite
+	+ item:CardItem
+	+ rating:Int
+	+ >
+	+ <
+	+ ==
+}
+
+class Model.CardMaskModel {
+	+ suite:CardSuiteMask
+	+ item:CardItemMask
+}
+
+class Model.Player {
+	+ name:String
+	+ cards:[Card]
+}
+
+class Logic.WinCombination {
+	- cardsMask:[CardMask]
+	+ name:WinCombinationType
+	+ rating:Int // calculate from win combination and cards
+	+ (bool) isWin(for:Hand)
+}
+
+
+class Logic.Game {
+	- winCombinations:[WinCombination]
+	- loadCards()
+	- loadWinCombinations()
+	- (WinCombination) winCombination(for:Hand)
+	- ([(Type:Hand, WinCombination)]) winCombinations<Type:Hand>(for:[Type:Hand])
+	+ ([Type:Hand]) winners<Type:Hand>(from:[Type:Hand])
+}
+
+
+Interface.Hand "1" *- "5" Interface.Card : contains
+
+Interface.Card 		--|> Model.CardModel
+Interface.CardMask 	--|> Model.CardMaskModel
+Interface.Hand 		--|> Model.Player
+
+
+
+Enum.CardSuite 			--* Interface.Card
+Enum.CardItem 			--* Interface.Card
+Enum.CardSuiteMask 		--* Interface.CardMask
+Enum.CardItemMask 		--* Interface.CardMask
+
+Enum.WinCombinationType --* Logic.WinCombination
+
+
+Interface.CardMask "many" --* "1" Logic.WinCombination : contains
+
+Logic.Game "1" *-- "many" Logic.WinCombination : contains
+
+note top of Factories.WinCombinationFactory
+	This factory is used to create win combination models.
+	If you need to use a different way to create models, use
+	add code here!
+end note
+
+note bottom of Logic.WinCombination
+	This class describes a winning combination and
+	checks a hand if it won.
+	Exampe: 
+		[CardItemMask.any, CardItemMask.equal] is One Pair
+		[CardItemMask.any, CardItemMask.equal, CardItemMask.equal] is Three of a Kind
+end note
+
+note top of Logic.Game
+	This class evaluates players and chooses winners.
+end note
+
+note top of Logic
+	Classes that are using to calculate
+	in MVC pattern they are called as controller
+end note
+
+note bottom of Model
+	Models, can be structs or classes
+	don't do any big calculations, usualy are used
+	to keep any data
+end note
+
+
+note top of Enum
+	Usualy enams are introduced inside
+	interface files
+end note
+
+
+@enduml
