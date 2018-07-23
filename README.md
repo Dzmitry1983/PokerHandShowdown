@@ -6,6 +6,7 @@ swift version = 4.1
 Xcode 9.4.1
 
 # Usage
+```swift
 let game = Game.init(true)
 let players = [
 	PlayerFactory.player(name:"Joe", cards:"2H", "3D", "4C", "5D", "10H")!,
@@ -15,6 +16,7 @@ let players = [
 let winners = game.winners(from:players)
 //to print winners
 firstWinners.forEach{ print($0.name) }
+```
 
 # Examples
 An example can be seen in the main.swift
