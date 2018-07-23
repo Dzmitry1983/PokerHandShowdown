@@ -25,4 +25,4 @@ To run an example, use "Console" target
 # Architecture
 Use this images to help understand an architecture
 ![alt text](https://github.com/Dzmitry1983/PokerHandShowdown/blob/master/Architecture/Class%20Diagram.png "Class Diagram")
-![](httpshttps://github.com/Dzmitry1983/PokerHandShowdown/blob/master/Architecture/Activity%20Diagram.png "Activity Diagram")
+![alt text](https://github.com/Dzmitry1983/PokerHandShowdown/blob/master/Architecture/Activity%20Diagram.png | width=300)
