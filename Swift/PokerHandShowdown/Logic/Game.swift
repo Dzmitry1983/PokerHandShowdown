@@ -53,16 +53,25 @@ public class Game {
 		return nil
 	}
 	
+	//this method executes in several threads
 	private func winCombinationsRatings<Type:Hand>(for hands:[Type]) -> [(hand:Type, rating:WinCombination.WinCombinationRating)] {
 		var returnValue:[(Type, WinCombination.WinCombinationRating)] = []
-		for hand in hands {
-			if let winCombination = self.winCombination(for:hand) {
-				returnValue.append((hand, winCombination.rating(hand)))
-			}
-			else {
-				returnValue.append((hand, WinCombination.WinCombinationRating()))
+		let semaphore: DispatchSemaphore = DispatchSemaphore.init(value: 1)
+		let group = DispatchGroup()
+		hands.forEach { (hand) in
+			group.enter()
+			DispatchQueue.global().async {
+				var winCombinationRating:WinCombination.WinCombinationRating = WinCombination.WinCombinationRating()
+				if let winCombination = self.winCombination(for:hand) {
+					winCombinationRating = winCombination.rating(hand)
+				}
+				semaphore.wait()
+				returnValue.append((hand, winCombinationRating))
+				semaphore.signal()
+				group.leave()
 			}
 		}
+		group.wait()
 		return returnValue
 	}
 	

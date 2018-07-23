@@ -388,4 +388,32 @@ class GameTest: XCTestCase {
 		XCTAssertTrue(fourstWinners.contains { $0.name == "Jen" })
 	}
 	
+	
+	func testPerformanceMultithreading() {
+		let playersOne = [
+			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
+			PlayerFactory.player(name:"Bob", cards:"AS", "QS", "8S", "6S", "4S")!,
+			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
+			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
+			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
+			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
+			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
+			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
+			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
+			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
+			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
+			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
+			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
+			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
+			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
+			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
+			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
+			]
+		let gameReduced = Game.init(true)
+		self.measure {
+			let firstWinners = gameReduced.winners(from:playersOne)
+			XCTAssertEqual(firstWinners.count, 1)
+			XCTAssertTrue(firstWinners.contains { $0.name == "Bob" })
+		}
+	}
 }
