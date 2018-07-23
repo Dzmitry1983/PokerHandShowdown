@@ -22,6 +22,9 @@ firstWinners.forEach{ print($0.name) }
 An example can be seen in the main.swift
 To run an example, use "Console" target
 
+# Tests
+To use tests, chose the PokerHandShowdown target and run test.
+
 # Architecture
 Use this images to help understand an architecture
 ![alt text](https://github.com/Dzmitry1983/PokerHandShowdown/blob/master/Architecture/Class%20Diagram.png "Class Diagram")
