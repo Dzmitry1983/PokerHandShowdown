@@ -6,7 +6,7 @@
 //  Copyright © 2018 Dzmitry Kudrashou. All rights reserved.
 //
 
-
+///Use this protocol to create custom players' classes
 public protocol Hand {
 	var cards:[Card] {get}
 }

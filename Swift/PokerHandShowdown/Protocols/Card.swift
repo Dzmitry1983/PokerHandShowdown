@@ -38,6 +38,7 @@ public enum CardSuite : CaseIterable {
 }
 
 //MARK: - Protocol
+///Use this protocol to create custom cards classes
 public protocol Card {
 	var item:CardItem { get }
 	var suite:CardSuite { get }

@@ -6,6 +6,9 @@
 //  Copyright © 2018 Dzmitry Kudrashou. All rights reserved.
 //
 
+
+///Is used to create card models
+///for example "2H", "3D", "4C", "5D", "10H"
 public class CardModelFactory {
 	
 	//MARK: - Type cosntant properties

@@ -6,6 +6,8 @@
 //  Copyright © 2018 Dzmitry Kudrashou. All rights reserved.
 //
 
+///regular poker subset names
+///Enum inheritances from int to has a rating
 enum WinCombinationType : Int, CaseIterable {
 	case highCard = 1
 	case onePair
@@ -183,12 +185,15 @@ class WinCombination {
 
 //MARK: - Nested Types
 extension WinCombination {
+	
+	///This class is used to compare win combinations
 	class WinCombinationRating : Comparable {
 		
 		var combination:Int = 0
 		var winCards:[Int] = []
 		var unWinCards:[Int] = []
 		
+		//MARK: - Comparable
 		public static func < (lhs:WinCombinationRating, rhs:WinCombinationRating) -> Bool {
 			if lhs.combination != rhs.combination {
 				return lhs.combination < rhs.combination

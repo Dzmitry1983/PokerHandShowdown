@@ -7,6 +7,7 @@
 //
 
 ///Contains infromation about player
+///player needs to have 5 cards
 public class Player : Hand {
 	//MARK: - Type cosntant properties
 	static let cardsCountIsNeededToGame = 5
@@ -16,6 +17,7 @@ public class Player : Hand {
 	public private(set) var name:String
 	
 	//MARk: - initializations
+	///return nil if player doesn't have 5 cards
 	public init?(name:String, cards:[Card]) {
 		if name.count == 0 || cards.count != Player.cardsCountIsNeededToGame {
 			return nil
