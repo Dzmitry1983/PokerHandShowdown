@@ -1,5 +1,4 @@
 @startuml
-skinparam dpi 200
 
 enum Enum.CardSuite {
 	diamond
@@ -11,9 +10,6 @@ enum Enum.CardItem {
 	ace
 	...
 	two
-	<<
-	>>
-	==
 }
 
 enum Enum.CardSuiteMask {
@@ -45,9 +41,6 @@ interface Interface.Card {
 	+ suite:CardSuite
 	+ item:CardItem
 	+ rating:Int
-	+ >
-	+ <
-	+ ==
 }
 
 interface Interface.CardMask {
@@ -56,16 +49,24 @@ interface Interface.CardMask {
 }
 
 class Factories.WinCombinationFactory {
-	+ (WinCombination) winCombination(by:WinCombinationType)
+	+ (WinCombination) winCombination(for:WinCombinationType)
+}
+
+class Factories.CardModelFactory {
+	+ (CardModel:Card) card(from:String) // i.e. 10S
+	+ (CardModel:Card) card(cardItem:CardItem, cardSuite:CardSuite)
+	+ ([CardModel:Card]) cards(from:[String]) // i.e. 10S, 5D
+	+ ([CardModel:Card]) cards((cardItem:CardItem, cardSuite:CardSuite)...)
+}
+
+class Factories.PlayerFactory {
+	+ (Player?) player(name:String, cards:[String])
 }
 
 class Model.CardModel {
 	+ suite:CardSuite
 	+ item:CardItem
 	+ rating:Int
-	+ >
-	+ <
-	+ ==
 }
 
 class Model.CardMaskModel {
@@ -76,13 +77,16 @@ class Model.CardMaskModel {
 class Model.Player {
 	+ name:String
 	+ cards:[Card]
+	+ (Player)init?(name:String, cards:[Card]) //can be created only if cards.count == 5
 }
 
 class Logic.WinCombination {
 	- cardsMask:[CardMask]
 	+ name:WinCombinationType
-	+ rating:Int // calculate from win combination and cards
+	+ rating:Int
+	+ (WinCombinationRating)rating(for:Hand) // calculate from win combination and cards
 	+ (bool) isWin(for:Hand)
+	+ ([Card]) winCards(for:Hand)
 }
 
 
