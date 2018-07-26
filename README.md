@@ -7,7 +7,7 @@ Xcode 9.4.1
 
 # Usage
 ```swift
-let game = Game.init(true)
+let game = Game.init()
 let players = [
 	PlayerFactory.player(name:"Joe", cards:"2H", "3D", "4C", "5D", "10H")!,
 	PlayerFactory.player(name:"Jen", cards:"5C", "7D", "8H", "9S", "QD")!,
