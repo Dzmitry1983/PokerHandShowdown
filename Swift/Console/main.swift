@@ -101,7 +101,7 @@ let playersFour = [
 	PlayerFactory.player(name:"Bob", cards:"2C", "4D", "5S", "10C", "JH")!,
 ]
 
-let gameReduced = Game.init(false)
+let gameReduced = Game()
 let firstWinners = gameReduced.winners(from:playersOne)
 let secondWinners = gameReduced.winners(from:playersTwo)
 let thirstWinners = gameReduced.winners(from:playersThree)

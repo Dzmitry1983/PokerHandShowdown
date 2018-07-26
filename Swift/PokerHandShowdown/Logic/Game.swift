@@ -7,15 +7,7 @@
 //
 
 ///Class Game evaluates hands and searchs the winners
-public class Game {
-	//MARK: - Type cosntant properties
-	private static let reducedWinCombinationsType:[WinCombinationType] = [
-		WinCombinationType.flush,
-		WinCombinationType.treeOfAKind,
-		WinCombinationType.onePair,
-		WinCombinationType.highCard,
-	]
-	
+public class Game {	
 	//MARK: - Stored properties
 	private(set) var winCombinations:[WinCombination] = []
 	
@@ -26,22 +18,13 @@ public class Game {
 	///• One Pair
 	///• High Card
 	/// if you want to load all combinations, set isFullGame = true
-	public init(_ isFullGame:Bool = false) {
-		if isFullGame {
-			self.winCombinations = self.loadAllWinCombinations()
-		}
-		else {
-			self.winCombinations = self.loadReducedWinCombinations()
-		}
+	public init() {
+		self.winCombinations = self.loadAllWinCombinations()
 	}
 	
 	//MARK: - private methoods
 	private func loadAllWinCombinations() -> [WinCombination] {
 		return WinCombinationType.allCases.map { WinCombinationFactory.winCombination(for:$0) }.sorted(by: { $0.rating > $1.rating })
-	}
-	
-	private func loadReducedWinCombinations() -> [WinCombination] {
-		return Game.reducedWinCombinationsType.map{ WinCombinationFactory.winCombination(for:$0) }.sorted(by: { $0.rating > $1.rating })
 	}
 	
 	private func winCombination(for hand:Hand) -> WinCombination? {

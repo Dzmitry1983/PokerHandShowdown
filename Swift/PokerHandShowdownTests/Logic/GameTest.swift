@@ -22,15 +22,12 @@ class GameTest: XCTestCase {
     }
 
 	func testInitialization() {
-		let gameFull = Game.init(true)
-		let gameReduced = Game.init(false)
+		let gameFull = Game()
 		XCTAssertEqual(gameFull.winCombinations.count, 10)
-		XCTAssertEqual(gameReduced.winCombinations.count, 4)
 	}
 	
 	func testHighestCard() {
-		let gameFull = Game.init(true)
-		let gameReduced = Game.init(false)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"AS", "KD", "2H", "3S", "5H")!,
 			PlayerFactory.player(name:"Mike", cards:"AS", "KD",  "2H", "3S", "5D")!,
@@ -44,30 +41,20 @@ class GameTest: XCTestCase {
 			]
 		
 		let firstFullWinners = gameFull.winners(from:playersOne)
-		let firstReducedWinners = gameReduced.winners(from:playersOne)
 		let secondFullWinners = gameFull.winners(from:playersTwo)
-		let secondReducedWinners = gameReduced.winners(from:playersTwo)
 		
 		XCTAssertEqual(firstFullWinners.count, 2)
-		XCTAssertEqual(firstReducedWinners.count, 2)
 		
 		XCTAssertEqual(secondFullWinners.count, 1)
-		XCTAssertEqual(secondReducedWinners.count, 1)
 		
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Joe" })
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Mike" })
 		
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Mike" })
-		
 		XCTAssertTrue(secondFullWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(secondReducedWinners.contains { $0.name == "Joe" })
-		
 	}
 	
 	func testOnePair() {
-		let gameFull = Game.init(true)
-		let gameReduced = Game.init(false)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"AS", "AD", "2H", "3S", "5H")!,
 			PlayerFactory.player(name:"Mike", cards:"AS", "AD", "2H", "3S", "5H")!,
@@ -81,28 +68,20 @@ class GameTest: XCTestCase {
 			]
 		
 		let firstFullWinners = gameFull.winners(from:playersOne)
-		let firstReducedWinners = gameReduced.winners(from:playersOne)
 		let secondFullWinners = gameFull.winners(from:playersTwo)
-		let secondReducedWinners = gameReduced.winners(from:playersTwo)
 		
 		XCTAssertEqual(firstFullWinners.count, 2)
-		XCTAssertEqual(firstReducedWinners.count, 2)
 		
 		XCTAssertEqual(secondFullWinners.count, 1)
-		XCTAssertEqual(secondReducedWinners.count, 1)
 		
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Joe" })
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Mike" })
 		
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Mike" })
-		
 		XCTAssertTrue(secondFullWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(secondReducedWinners.contains { $0.name == "Joe" })
 	}
 	
 	func testTwoPair() {
-		let gameFull = Game.init(true)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"KS", "KD", "2H", "3S", "3H")!,
 			PlayerFactory.player(name:"Mike", cards:"KS", "KD", "2H", "3S", "3H")!,
@@ -129,8 +108,7 @@ class GameTest: XCTestCase {
 	}
 	
 	func testTreeOfAKind() {
-		let gameFull = Game.init(true)
-		let gameReduced = Game.init(false)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"AS", "AD", "AH", "3S", "5H")!,
 			PlayerFactory.player(name:"Mike", cards:"AS", "AD", "AH", "3S", "5H")!,
@@ -144,28 +122,20 @@ class GameTest: XCTestCase {
 			]
 		
 		let firstFullWinners = gameFull.winners(from:playersOne)
-		let firstReducedWinners = gameReduced.winners(from:playersOne)
 		let secondFullWinners = gameFull.winners(from:playersTwo)
-		let secondReducedWinners = gameReduced.winners(from:playersTwo)
 		
 		XCTAssertEqual(firstFullWinners.count, 2)
-		XCTAssertEqual(firstReducedWinners.count, 2)
 		
 		XCTAssertEqual(secondFullWinners.count, 1)
-		XCTAssertEqual(secondReducedWinners.count, 1)
 		
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Joe" })
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Mike" })
 		
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Mike" })
-		
 		XCTAssertTrue(secondFullWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(secondReducedWinners.contains { $0.name == "Joe" })
 	}
 	
 	func testStraight() {
-		let gameFull = Game.init(true)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"3S", "4D", "5H", "6S", "7H")!,
 			PlayerFactory.player(name:"Mike", cards:"3S", "4D", "5D", "6S", "7H")!,
@@ -192,8 +162,7 @@ class GameTest: XCTestCase {
 	}
 	
 	func testFlush() {
-		let gameFull = Game.init(true)
-		let gameReduced = Game.init(false)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"3S", "4S", "10S", "6S", "7S")!,
 			PlayerFactory.player(name:"Mike", cards:"3S", "4S", "10S", "6S", "7S")!,
@@ -207,28 +176,20 @@ class GameTest: XCTestCase {
 			]
 		
 		let firstFullWinners = gameFull.winners(from:playersOne)
-		let firstReducedWinners = gameReduced.winners(from:playersOne)
 		let secondFullWinners = gameFull.winners(from:playersTwo)
-		let secondReducedWinners = gameReduced.winners(from:playersTwo)
 		
 		XCTAssertEqual(firstFullWinners.count, 2)
-		XCTAssertEqual(firstReducedWinners.count, 2)
 		
 		XCTAssertEqual(secondFullWinners.count, 1)
-		XCTAssertEqual(secondReducedWinners.count, 1)
 		
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Joe" })
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Mike" })
 		
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Mike" })
-		
 		XCTAssertTrue(secondFullWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(secondReducedWinners.contains { $0.name == "Joe" })
 	}
 	
 	func testFullHouse() {
-		let gameFull = Game.init(true)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "8H", "2S", "2H")!,
 			PlayerFactory.player(name:"Mike", cards:"8S", "8D", "8H", "2S", "2H")!,
@@ -255,7 +216,7 @@ class GameTest: XCTestCase {
 	}
 	
 	func testFourOfAKind() {
-		let gameFull = Game.init(true)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "8H", "8S", "2H")!,
 			PlayerFactory.player(name:"Mike", cards:"8S", "8D", "8H", "8S", "2H")!,
@@ -282,8 +243,7 @@ class GameTest: XCTestCase {
 	}
 	
 	func testStraightFlush() {
-		let gameFull = Game.init(true)
-		let gameReduced = Game.init(false)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"KH", "QH", "JH", "10H", "9H")!,
 			PlayerFactory.player(name:"Mike", cards:"KH", "QH", "JH", "10H", "9H")!,
@@ -297,28 +257,20 @@ class GameTest: XCTestCase {
 			]
 		
 		let firstFullWinners = gameFull.winners(from:playersOne)
-		let firstReducedWinners = gameReduced.winners(from:playersOne)
 		let secondFullWinners = gameFull.winners(from:playersTwo)
-		let secondReducedWinners = gameReduced.winners(from:playersTwo)
 		
 		XCTAssertEqual(firstFullWinners.count, 2)
-		XCTAssertEqual(firstReducedWinners.count, 2)
 		
 		XCTAssertEqual(secondFullWinners.count, 1)
-		XCTAssertEqual(secondReducedWinners.count, 1)
 		
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Joe" })
 		XCTAssertTrue(firstFullWinners.contains { $0.name == "Mike" })
 		
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(firstReducedWinners.contains { $0.name == "Mike" })
-		
 		XCTAssertTrue(secondFullWinners.contains { $0.name == "Joe" })
-		XCTAssertTrue(secondReducedWinners.contains { $0.name == "Joe" })
 	}
 	
 	func testRoyalFlush() {
-		let gameFull = Game.init(true)
+		let gameFull = Game()
 		let playersOne = [
 			PlayerFactory.player(name:"Joe", cards:"KH", "QH", "JH", "10H", "AH")!,
 			PlayerFactory.player(name:"Mike", cards:"KH", "QH", "JH", "10H", "AH")!,
@@ -369,7 +321,7 @@ class GameTest: XCTestCase {
 			PlayerFactory.player(name:"Bob", cards:"2C", "4D", "5S", "10C", "JH")!,
 			]
 		
-		let gameReduced = Game.init(false)
+		let gameReduced = Game()
 		let firstWinners = gameReduced.winners(from:playersOne)
 		let secondWinners = gameReduced.winners(from:playersTwo)
 		let thirstWinners = gameReduced.winners(from:playersThree)
@@ -409,9 +361,9 @@ class GameTest: XCTestCase {
 			PlayerFactory.player(name:"Sally", cards:"4S", "4H", "3H", "QC", "8C")!,
 			PlayerFactory.player(name:"Joe", cards:"8S", "8D", "AD", "QD", "JH")!,
 			]
-		let gameReduced = Game.init(true)
+		let game = Game()
 		self.measure {
-			let firstWinners = gameReduced.winners(from:playersOne)
+			let firstWinners = game.winners(from:playersOne)
 			XCTAssertEqual(firstWinners.count, 1)
 			XCTAssertTrue(firstWinners.contains { $0.name == "Bob" })
 		}
